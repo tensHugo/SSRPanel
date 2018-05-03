@@ -23,3 +23,4 @@ class autoDisableExpireUserJob extends Command
         Log::info('定时任务：' . $this->description);
     }
 
+}
