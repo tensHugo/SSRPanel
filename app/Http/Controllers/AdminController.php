@@ -63,7 +63,7 @@ class AdminController extends Controller
         $view['expireWarningUserCount'] = User::query()->where('expire_time', '<=', date('Y-m-d', strtotime("+" . self::$config['expire_days'] . " days")))->where('enable', 1)->count();
         $view['todayUser'] = User::query()->where('created_at','>=',date('Y-m-d 00:00:00'))->where('created_at','<=',date('Y-m-d 23:59:59'))->count();
         $view['todayCz'] = QypayOrder::query()->where('status',1)->where('pay_time','>=',date('Y-m-d 00:00:00'))->where('pay_time','<=',date('Y-m-d 23:59:59'))->sum('price');
-
+        $view['mCz'] = QypayOrder::query()->where('status',1)->where('pay_time','>=',date('Y-m-1 00:00:00'))->where('pay_time','<=',date('Y-m-31 23:59:59'))->sum('price');
         return Response::view('admin/index', $view);
     }
 
