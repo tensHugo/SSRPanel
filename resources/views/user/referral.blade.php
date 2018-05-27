@@ -103,6 +103,61 @@
                         </div>
                     </div>
                 </div>
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-dark">
+                            <span class="caption-subject bold"> 邀请人员列表 </span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-scrollable">
+                            <table class="table table-striped table-bordered table-hover table-checkable order-column">
+                                <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th> 用户名 </th>
+                                    <th> 注册时间</th>
+                                    <th>账户状态</th>                                  
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if($referralUserList->isEmpty())
+                                    <tr>
+                                        <td colspan="4"> {{trans('home.referral_table_none')}} </td>
+                                    </tr>
+                                @else
+                                    @foreach($referralUserList as $key => $UserList)
+                                        <tr class="odd gradeX">
+                                            <td> {{$key + 1}} </td>
+                                            <td> {{$UserList->username}} </td>
+                                            <td> {{$UserList->created_at}} </td>
+                                            <td> 
+                                            @if($UserList->status == 1)
+                                               <span class="label label-sm label-default">已激活</span>
+                                            @elseif($UserList->status == 0)
+                                               <span class="label label-sm label-danger">未激活</span>
+                                            @else
+                                               <span class="label label-sm label-info">禁用</span> 
+                                            @endif  
+                                            </td> 
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5">
+                                <div class="dataTables_info" role="status" aria-live="polite">共 {{$referralUserList->total()}} 条记录</div>
+                            </div>
+                            <div class="col-md-7 col-sm-7">
+                                <div class="dataTables_paginate paging_bootstrap_full_number pull-right">
+                                    {{ $referralUserList->links() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- END EXAMPLE TABLE PORTLET-->
             </div>
         </div>

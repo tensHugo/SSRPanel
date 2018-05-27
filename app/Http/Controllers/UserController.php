@@ -979,6 +979,9 @@ class UserController extends Controller
                 $referral->ref_amount = $referral->ref_amount / 100;
             }
         }
+       
+        $referralUserList = User::query()->where('referral_uid',$user['id'])->paginate(10);
+        $view['referralUserList'] = $referralUserList;
         $view['referralLogList'] = $referralLogList;
 
         return Response::view('user/referral', $view);
